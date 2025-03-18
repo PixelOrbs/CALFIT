@@ -1,0 +1,78 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.10"    }
+}
+
+plugins {
+    id "com.android.application"
+    // FlutterFire Configuration
+    id 'com.google.gms.google-services'
+    id "kotlin-android"
+    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+group "com.example.fitness"
+
+android {
+      aaptOptions {
+        noCompress "tflite"
+        noCompress "lite"
+    }
+
+    packagingOptions {
+        pickFirst 'lib/x86/libtensorflowlite_c.so'
+        pickFirst 'lib/x86_64/libtensorflowlite_c.so'
+        pickFirst 'lib/armeabi-v7a/libtensorflowlite_c.so'
+        pickFirst 'lib/arm64-v8a/libtensorflowlite_c.so'
+    }
+    namespace = "com.example.fitness"  // The module's namespace
+    compileSdk = 34  // Ensure this matches the SDK version in use
+
+    ndkVersion = "25.1.8937393"  // Specify the NDK version to avoid compatibility issues
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    defaultConfig {
+        applicationId = "com.example.fitness" // Your unique Application ID
+        minSdk = 26  // Ensure compatibility with Firebase and other dependencies
+        targetSdk = 34
+        versionCode flutter.versionCode  // Keep versioning consistent with Flutter configs
+        versionName flutter.versionName
+        multiDexEnabled true
+    }
+
+    packagingOptions {
+        exclude 'core-for-system-modules.jar'  // Exclude any conflicting files
+    }
+
+    buildTypes {
+        release {
+            // Replace with release signing configuration for production
+            signingConfig signingConfigs.debug
+            // Uncomment below lines to set up release signing keys
+            // signingConfig signingConfigs.release
+        }
+    }
+}
+
+flutter {
+    source '../..'
+}
+
+dependencies {
+    implementation 'org.tensorflow:tensorflow-lite-gpu-api:2.10.0'
+    implementation 'com.google.firebase:firebase-analytics-ktx'  // Example Firebase dependency
+    implementation 'androidx.multidex:multidex:2.0.1'  // Ensure multidex support
+}
