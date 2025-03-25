@@ -34,12 +34,17 @@ class _MealPlannerState extends State<MealPlanner> {
   String _classificationResult = "No result yet";
 
   
-  final Map<String, double> _caloriesPerGram = {
-    "burger": 5.7,
-    "chop": 4.0, 
-    "patties": 2.0, 
-    "sandwich": 3.5,
-  };
+final Map<String, double> _caloriesPerGram = {
+  "burger": 5.7,
+  "sliced cake": 4.1,
+  "chicken chop": 4.0,
+  "spring roll": 3.8,
+  "patty": 2.0,
+  "samosa": 3.6,
+  "sandwich": 3.5,
+  "uncle chips": 5.5,  
+};
+
 
   @override
   void initState() {
@@ -51,7 +56,7 @@ class _MealPlannerState extends State<MealPlanner> {
 
   Future<void> _initializeInterpreter() async {
     try {
-      _interpreter = await Interpreter.fromAsset('assets/12.tflite');
+      _interpreter = await Interpreter.fromAsset('assets/food_model.tflite');
       print("Model loaded successfully!");
       setState(() {
         _isInterpreterInitialized = true;

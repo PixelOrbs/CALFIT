@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fitness/common/colo_extension.dart';
-import 'package:fitness/backend/User_Data.dart'; 
+import 'package:fitness/backend/User_Data.dart';
 import 'package:fitness/common_widget/tab_button.dart';
 import 'package:fitness/view/meal_planner/camera.dart';
 import 'package:fitness/view/home/home_view.dart';
@@ -18,21 +18,20 @@ class MainTabView extends StatefulWidget {
 }
 
 class _MainTabViewState extends State<MainTabView> {
-  Map<String, dynamic>? userData; 
+  Map<String, dynamic>? userData;
   int selectTab = 0;
   final PageStorageBucket pageBucket = PageStorageBucket();
-  late Widget currentTab; 
+  late Widget currentTab;
 
   @override
   void initState() {
     super.initState();
-    getUserData(); 
-    currentTab = HomeView(
-        emailController: widget.emailController); 
+    getUserData();
+    currentTab = HomeView(emailController: widget.emailController);
   }
 
   Future<void> getUserData() async {
-    String email = widget.emailController.text; 
+    String email = widget.emailController.text;
     DocumentSnapshot snapshot = await FirebaseFirestore.instance
         .collection('UserData')
         .doc(email)
@@ -40,8 +39,7 @@ class _MainTabViewState extends State<MainTabView> {
 
     if (snapshot.exists) {
       setState(() {
-        userData =
-            snapshot.data() as Map<String, dynamic>; 
+        userData = snapshot.data() as Map<String, dynamic>;
       });
     } else {
       print('No user data found for this email.');
@@ -58,30 +56,7 @@ class _MainTabViewState extends State<MainTabView> {
         width: 70,
         height: 70,
         child: InkWell(
-          onTap: () {
-            
-          },
-          child: Container(
-            width: 65,
-            height: 65,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: TColor.primaryG,
-              ),
-              borderRadius: BorderRadius.circular(35),
-              boxShadow: const [
-                BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 2,
-                )
-              ],
-            ),
-            child: Icon(
-              Icons.search,
-              color: TColor.white,
-              size: 35,
-            ),
-          ),
+          onTap: () {},
         ),
       ),
       bottomNavigationBar: BottomAppBar(
@@ -127,7 +102,6 @@ class _MainTabViewState extends State<MainTabView> {
                     setState(() {
                       currentTab = CameraScreen();
                       selectTab = 2;
-                      
                     });
                   }),
               TabButton(

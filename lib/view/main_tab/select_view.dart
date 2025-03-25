@@ -8,8 +8,6 @@ class SelectView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
-
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -40,7 +38,6 @@ class SelectView extends StatelessWidget {
             const SizedBox(
               height: 15,
             ),
-            RoundButton(title: "Sleep Tracker", onPressed: () {})
           ],
         ),
       ),

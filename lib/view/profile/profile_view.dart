@@ -1,14 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fitness/view/main_tab/main_tab_view.dart';
+import 'package:fitness/view/login/complete_profile_view.dart';
 import 'package:fitness/view/on_boarding/on_boarding_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../common/colo_extension.dart';
 import '../../common_widget/round_button.dart';
-import '../../common_widget/setting_row.dart';
 import '../../common_widget/title_subtitle_cell.dart';
-import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key, required this.emailController});
@@ -20,12 +18,13 @@ class ProfileView extends StatefulWidget {
 }
 
 class _ProfileViewState extends State<ProfileView> {
+  @override
   void initState() {
     super.initState();
-    getUserData(); 
+    getUserData();
   }
 
-  Map<String, dynamic>? userData; 
+  Map<String, dynamic>? userData;
 
   Future<void> getUserData() async {
     String email = widget.emailController.text;
@@ -36,15 +35,12 @@ class _ProfileViewState extends State<ProfileView> {
 
     if (snapshot.exists) {
       setState(() {
-        userData =
-            snapshot.data() as Map<String, dynamic>; 
+        userData = snapshot.data() as Map<String, dynamic>;
       });
     } else {
       print('No user data found for this email.');
     }
   }
-
-  bool positive = false;
 
   @override
   Widget build(BuildContext context) {
@@ -59,26 +55,6 @@ class _ProfileViewState extends State<ProfileView> {
           style: TextStyle(
               color: TColor.black, fontSize: 16, fontWeight: FontWeight.w700),
         ),
-        actions: [
-          InkWell(
-            onTap: () {},
-            child: Container(
-              margin: const EdgeInsets.all(8),
-              height: 40,
-              width: 40,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                  color: TColor.lightGray,
-                  borderRadius: BorderRadius.circular(10)),
-              child: Image.asset(
-                "assets/img/more_btn.png",
-                width: 15,
-                height: 15,
-                fit: BoxFit.contain,
-              ),
-            ),
-          )
-        ],
       ),
       backgroundColor: TColor.white,
       body: SingleChildScrollView(
@@ -98,9 +74,7 @@ class _ProfileViewState extends State<ProfileView> {
                       fit: BoxFit.cover,
                     ),
                   ),
-                  const SizedBox(
-                    width: 15,
-                  ),
+                  const SizedBox(width: 15),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,7 +82,7 @@ class _ProfileViewState extends State<ProfileView> {
                         Text(
                           userData != null
                               ? "${userData!['FirstName']} ${userData!['LastName']}"
-                              : "",
+                              : "Loading...",
                           style: TextStyle(
                               color: TColor.black,
                               fontSize: 14,
@@ -130,15 +104,12 @@ class _ProfileViewState extends State<ProfileView> {
                     child: RoundButton(
                       title: "Logout",
                       onPressed: () {
-                        
                         FirebaseAuth.instance.signOut().then((value) {
-                          
                           Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => const OnBoardingView()),
-                            (Route<dynamic> route) =>
-                                false, 
+                            (Route<dynamic> route) => false,
                           );
                         }).catchError((error) {
                           print("Logout Error: ${error.toString()}");
@@ -151,43 +122,57 @@ class _ProfileViewState extends State<ProfileView> {
                   )
                 ],
               ),
-              const SizedBox(
-                height: 15,
-              ),
-              const Row(
+              const SizedBox(height: 15),
+              Row(
                 children: [
                   Expanded(
                     child: TitleSubtitleCell(
-                      title: "180cm",
+                      title: userData?['Height'] != null
+                          ? "${userData!['Height']} cm"
+                          : "N/A",
                       subtitle: "Height",
                     ),
                   ),
-                  SizedBox(
-                    width: 15,
-                  ),
+                  const SizedBox(width: 15),
                   Expanded(
                     child: TitleSubtitleCell(
-                      title: "65kg",
+                      title: userData?['Weight'] != null
+                          ? "${userData!['Weight']} kg"
+                          : "N/A",
                       subtitle: "Weight",
                     ),
                   ),
-                  SizedBox(
-                    width: 15,
-                  ),
+                  const SizedBox(width: 15),
                   Expanded(
                     child: TitleSubtitleCell(
-                      title: "22yo",
+                      title: userData?['DateOfBirth'] != null
+                          ? "${userData!['DateOfBirth']} yo"
+                          : "N/A",
                       subtitle: "Age",
                     ),
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 25,
+              const SizedBox(height: 25),
+              SizedBox(
+                width: double.infinity,
+                child: RoundButton(
+                  title: "Change Profile",
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CompleteProfileView(
+                                emailController: widget.emailController,
+                              )),
+                    );
+                  },
+                  type: RoundButtonType.bgGradient,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
-              const SizedBox(
-                height: 25,
-              ),
+              const SizedBox(height: 25),
             ],
           ),
         ),

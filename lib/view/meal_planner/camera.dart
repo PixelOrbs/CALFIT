@@ -2,7 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:fitness/common/colo_extension.dart';
 import 'package:flutter/material.dart';
-import 'package:image/image.dart' as img; 
+import 'package:image/image.dart' as img;
 import 'package:image_picker/image_picker.dart';
 import 'package:tflite_flutter/tflite_flutter.dart';
 
@@ -20,110 +20,47 @@ class _CameraScreenState extends State<CameraScreen> {
   bool _isInterpreterInitialized = false;
 
   final Map<String, double> _caloriesPerGram = {
-    'apple_6': 0.53,
-    'apple_braeburn_1': 0.53,
-    'apple_crimson_snow_1': 0.53,
-    'apple_golden_1': 0.53,
-    'apple_golden_2': 0.53,
-    'apple_golden_3': 0.53,
-    'apple_granny_smith_1': 0.53,
-    'apple_hit_1': 0.53,
-    'apple_pink_lady_1': 0.53,
-    'apple_red_1': 0.53,
-    'apple_red_2': 0.53,
-    'apple_red_3': 0.53,
-    'apple_red_delicious_1': 0.53,
-    'apple_red_yellow_1': 0.53,
-    'apple_rotten_1': 0.0,
-    'cabbage_white_1': 0.25,
-    'carrot_1': 0.41,
-    'cucumber_1': 0.15,
-    'cucumber_3': 0.15,
-    'eggplant_long_1': 0.25,
-    'pear_1': 0.57,
-    'pear_3': 0.57,
-    'zucchini_1': 0.17,
-    'zucchini_dark_1': 0.17,
+    "burger": 5.7,
+    "sliced_cake": 4.1,
+    "chicken_chop": 4.0,
+    "spring_roll": 3.8,
+    "patty": 2.0,
+    "samosa": 3.6,
+    "sandwich": 3.5,
+    "uncle_chips": 5.5,
   };
+
   final Map<String, double> _proteinPerGram = {
-    'apple_6': 0.002,
-    'apple_braeburn_1': 0.002,
-    'apple_crimson_snow_1': 0.002,
-    'apple_golden_1': 0.002,
-    'apple_golden_2': 0.002,
-    'apple_golden_3': 0.002,
-    'apple_granny_smith_1': 0.002,
-    'apple_hit_1': 0.002,
-    'apple_pink_lady_1': 0.002,
-    'apple_red_1': 0.002,
-    'apple_red_2': 0.002,
-    'apple_red_3': 0.002,
-    'apple_red_delicious_1': 0.002,
-    'apple_red_yellow_1': 0.002,
-    'apple_rotten_1': 0.0,
-    'cabbage_white_1': 0.01,
-    'carrot_1': 0.009,
-    'cucumber_1': 0.008,
-    'cucumber_3': 0.008,
-    'eggplant_long_1': 0.01,
-    'pear_1': 0.002,
-    'pear_3': 0.002,
-    'zucchini_1': 0.007,
-    'zucchini_dark_1': 0.007,
+    "burger": 0.16,
+    "sliced_cake": 0.05,
+    "chicken_chop": 0.20,
+    "spring_roll": 0.07,
+    "patty": 0.08,
+    "samosa": 0.06,
+    "sandwich": 0.12,
+    "uncle_chips": 0.07,
   };
 
   final Map<String, double> _fatsPerGram = {
-    'apple_6': 0.003,
-    'apple_braeburn_1': 0.003,
-    'apple_crimson_snow_1': 0.003,
-    'apple_golden_1': 0.003,
-    'apple_golden_2': 0.003,
-    'apple_golden_3': 0.003,
-    'apple_granny_smith_1': 0.003,
-    'apple_hit_1': 0.003,
-    'apple_pink_lady_1': 0.003,
-    'apple_red_1': 0.003,
-    'apple_red_2': 0.003,
-    'apple_red_3': 0.003,
-    'apple_red_delicious_1': 0.003,
-    'apple_red_yellow_1': 0.003,
-    'apple_rotten_1': 0.0,
-    'cabbage_white_1': 0.002,
-    'carrot_1': 0.002,
-    'cucumber_1': 0.001,
-    'cucumber_3': 0.001,
-    'eggplant_long_1': 0.002,
-    'pear_1': 0.003,
-    'pear_3': 0.003,
-    'zucchini_1': 0.001,
-    'zucchini_dark_1': 0.001,
+    "burger": 0.30,
+    "sliced_cake": 0.20,
+    "chicken_chop": 0.15,
+    "spring_roll": 0.18,
+    "patty": 0.10,
+    "samosa": 0.17,
+    "sandwich": 0.12,
+    "uncle_chips": 0.35,
   };
 
   final Map<String, double> _carbsPerGram = {
-    'apple_6': 0.14,
-    'apple_braeburn_1': 0.14,
-    'apple_crimson_snow_1': 0.14,
-    'apple_golden_1': 0.14,
-    'apple_golden_2': 0.14,
-    'apple_golden_3': 0.14,
-    'apple_granny_smith_1': 0.14,
-    'apple_hit_1': 0.14,
-    'apple_pink_lady_1': 0.14,
-    'apple_red_1': 0.14,
-    'apple_red_2': 0.14,
-    'apple_red_3': 0.14,
-    'apple_red_delicious_1': 0.14,
-    'apple_red_yellow_1': 0.14,
-    'apple_rotten_1': 0.0,
-    'cabbage_white_1': 0.06,
-    'carrot_1': 0.1,
-    'cucumber_1': 0.036,
-    'cucumber_3': 0.036,
-    'eggplant_long_1': 0.06,
-    'pear_1': 0.15,
-    'pear_3': 0.15,
-    'zucchini_1': 0.035,
-    'zucchini_dark_1': 0.035,
+    "burger": 0.45,
+    "sliced_cake": 0.50,
+    "chicken_chop": 0.30,
+    "spring_roll": 0.40,
+    "patty": 0.35,
+    "samosa": 0.45,
+    "sandwich": 0.50,
+    "uncle_chips": 0.50,
   };
 
   @override
@@ -135,7 +72,7 @@ class _CameraScreenState extends State<CameraScreen> {
 
   Future<void> _initializeInterpreter() async {
     try {
-      _interpreter = await Interpreter.fromAsset('assets/model.tflite');
+      _interpreter = await Interpreter.fromAsset('assets/food_model.tflite');
       print("Model loaded successfully!");
       setState(() {
         _isInterpreterInitialized = true;

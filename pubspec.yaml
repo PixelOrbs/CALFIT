@@ -93,6 +93,7 @@ flutter:
     - assets/food1.tflite
     - assets/12.tflite
     - assets/labels.txt
+    - assets/food_model.tflite
     - assets/bicep_curl.mp4
 
   #   - images/a_dot_ham.jpeg
