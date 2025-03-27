@@ -19,49 +19,49 @@ class _CameraScreenState extends State<CameraScreen> {
   bool _isLoading = false;
   bool _isInterpreterInitialized = false;
 
-  final Map<String, double> _caloriesPerGram = {
-    "burger": 5.7,
-    "sliced_cake": 4.1,
-    "chicken_chop": 4.0,
-    "spring_roll": 3.8,
-    "patty": 2.0,
-    "samosa": 3.6,
-    "sandwich": 3.5,
-    "uncle_chips": 5.5,
-  };
+final Map<String, double> _caloriesPerGram = {
+  "burger": 5.7,           
+  "cake_slice": 4.1,       
+  "chicken_chop": 4.0,     
+  "chicken_spring_roll": 3.8,
+  "chocolate_cake": 4.5,   
+  "samosa": 3.6,           
+  "sandwich": 3.5,         
+  "uncle_chips": 5.5,      
+};
 
-  final Map<String, double> _proteinPerGram = {
-    "burger": 0.16,
-    "sliced_cake": 0.05,
-    "chicken_chop": 0.20,
-    "spring_roll": 0.07,
-    "patty": 0.08,
-    "samosa": 0.06,
-    "sandwich": 0.12,
-    "uncle_chips": 0.07,
-  };
+final Map<String, double> _proteinPerGram = {
+  "burger": 0.16,
+  "cake_slice": 0.05,
+  "chicken_chop": 0.20,
+  "chicken_spring_roll": 0.07,
+  "chocolate_cake": 0.06, 
+  "samosa": 0.06,
+  "sandwich": 0.12,
+  "uncle_chips": 0.07,
+};
 
-  final Map<String, double> _fatsPerGram = {
-    "burger": 0.30,
-    "sliced_cake": 0.20,
-    "chicken_chop": 0.15,
-    "spring_roll": 0.18,
-    "patty": 0.10,
-    "samosa": 0.17,
-    "sandwich": 0.12,
-    "uncle_chips": 0.35,
-  };
+final Map<String, double> _fatsPerGram = {
+  "burger": 0.30,
+  "cake_slice": 0.20,
+  "chicken_chop": 0.15,
+  "chicken_spring_roll": 0.18,
+  "chocolate_cake": 0.25, 
+  "sandwich": 0.12,
+  "uncle_chips": 0.35,
+};
 
-  final Map<String, double> _carbsPerGram = {
-    "burger": 0.45,
-    "sliced_cake": 0.50,
-    "chicken_chop": 0.30,
-    "spring_roll": 0.40,
-    "patty": 0.35,
-    "samosa": 0.45,
-    "sandwich": 0.50,
-    "uncle_chips": 0.50,
-  };
+final Map<String, double> _carbsPerGram = {
+  "burger": 0.45,
+  "cake_slice": 0.50,
+  "chicken_chop": 0.30,
+  "chicken_spring_roll": 0.40,
+  "chocolate_cake": 0.55, 
+  "samosa": 0.45,
+  "sandwich": 0.50,
+  "uncle_chips": 0.50,
+};
+
 
   @override
   void initState() {

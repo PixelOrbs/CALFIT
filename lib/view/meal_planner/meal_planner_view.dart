@@ -14,17 +14,14 @@ class MealPlanner extends StatefulWidget {
 }
 
 class _MealPlannerState extends State<MealPlanner> {
-  
   int totalCalories = 2000;
   int remainingCalories = 2000;
-
 
   Map<String, List<Map<String, dynamic>>> meals = {
     'Breakfast': [],
     'Lunch': [],
     'Dinner': [],
   };
-
 
   late Interpreter _interpreter;
   late ImagePicker _imagePicker;
@@ -33,18 +30,16 @@ class _MealPlannerState extends State<MealPlanner> {
   bool _isInterpreterInitialized = false;
   String _classificationResult = "No result yet";
 
-  
-final Map<String, double> _caloriesPerGram = {
-  "burger": 5.7,
-  "sliced cake": 4.1,
-  "chicken chop": 4.0,
-  "spring roll": 3.8,
-  "patty": 2.0,
-  "samosa": 3.6,
-  "sandwich": 3.5,
-  "uncle chips": 5.5,  
-};
-
+  final Map<String, double> _caloriesPerGram = {
+    "burger": 5.7,
+    "cake_slice": 4.1,
+    "chicken_chop": 4.0,
+    "chicken_spring_roll": 3.8,
+    "chocolate_cake": 4.5,
+    "samosa": 3.6,
+    "sandwich": 3.5,
+    "uncle_chips": 5.5,
+  };
 
   @override
   void initState() {
@@ -76,7 +71,6 @@ final Map<String, double> _caloriesPerGram = {
 
       String? savedMeals = prefs.getString('meals');
       if (savedMeals != null) {
-        
         Map<String, dynamic> decodedMeals = json.decode(savedMeals);
         meals = decodedMeals.map(
           (key, value) => MapEntry(
@@ -309,7 +303,6 @@ final Map<String, double> _caloriesPerGram = {
       ),
       body: Column(
         children: [
-          
           Container(
             padding: EdgeInsets.all(16),
             width: double.infinity,
@@ -365,8 +358,6 @@ final Map<String, double> _caloriesPerGram = {
               ],
             ),
           ),
-
-          
           Expanded(
             child: ListView(
               children: meals.keys.map((mealType) {
@@ -424,28 +415,11 @@ final Map<String, double> _caloriesPerGram = {
               }).toList(),
             ),
           ),
-
-        
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ElevatedButton.icon(
-                  onPressed: _takePictureForAnyMeal,
-                  icon: Icon(Icons.camera_alt),
-                  label: Text(
-                    'Add Meal',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: TColor.primaryColor2,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 20),
-                  ),
-                ),
                 ElevatedButton.icon(
                   onPressed: _resetData,
                   icon: Icon(Icons.refresh),

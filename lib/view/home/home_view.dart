@@ -157,15 +157,6 @@ class _HomeViewState extends State<HomeView> {
                               SizedBox(
                                 height: media.width * 0.05,
                               ),
-                              SizedBox(
-                                  width: 120,
-                                  height: 35,
-                                  child: RoundButton(
-                                      title: "View More",
-                                      type: RoundButtonType.bgSGradient,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400,
-                                      onPressed: () {}))
                             ],
                           ),
                           AspectRatio(

@@ -34,7 +34,7 @@ class _StartedViewState extends State<StartedView> {
             children: [
               const Spacer(),
               Text(
-                "Fitness",
+                "CALFIT",
                 style: TextStyle(
                     color: TColor.black,
                     fontSize: 36,
@@ -58,13 +58,11 @@ class _StartedViewState extends State<StartedView> {
                         : RoundButtonType.bgGradient,
                     onPressed: () {
                       if (isChangeColor) {
-                        
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => const OnBoardingView()));
                       } else {
-                        
                         setState(() {
                           isChangeColor = true;
                         });

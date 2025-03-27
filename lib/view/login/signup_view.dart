@@ -15,11 +15,12 @@ class SignUpView extends StatefulWidget {
 }
 
 class _SignUpViewState extends State<SignUpView> {
-  TextEditingController txtFN = TextEditingController(); 
-  TextEditingController txtLN = TextEditingController(); 
-  TextEditingController txtemail = TextEditingController(); 
-  TextEditingController txtpass = TextEditingController(); 
+  TextEditingController txtFN = TextEditingController();
+  TextEditingController txtLN = TextEditingController();
+  TextEditingController txtemail = TextEditingController();
 
+  TextEditingController txtpass = TextEditingController();
+  bool isPasswordVisible = false;
   bool isCheck = false;
   @override
   Widget build(BuildContext context) {
@@ -76,9 +77,13 @@ class _SignUpViewState extends State<SignUpView> {
                   hitText: "Password",
                   icon: "assets/img/lock.png",
                   controller: txtpass,
-                  obscureText: true,
+                  obscureText: !isPasswordVisible,
                   rigtIcon: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                          isPasswordVisible = !isPasswordVisible;
+                        });
+                      },
                       child: Container(
                           alignment: Alignment.center,
                           width: 20,
@@ -122,20 +127,17 @@ class _SignUpViewState extends State<SignUpView> {
                 RoundButton(
                     title: "Register",
                     onPressed: () {
-                      
                       FirebaseAuth.instance
                           .createUserWithEmailAndPassword(
                               email: txtemail.text, password: txtpass.text)
                           .then((value) {
-                        
                         FirebaseFirestore.instance
                             .collection('UserData')
-                            .doc(txtemail
-                                .text) 
+                            .doc(txtemail.text)
                             .set({
-                          "FirstName": txtFN.text, 
-                          "LastName": txtLN.text, 
-                          "Email": txtemail.text 
+                          "FirstName": txtFN.text,
+                          "LastName": txtLN.text,
+                          "Email": txtemail.text
                         }).then((_) {
                           print("User data added to Firestore");
                           Navigator.push(
@@ -180,51 +182,9 @@ class _SignUpViewState extends State<SignUpView> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        width: 50,
-                        height: 50,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: TColor.white,
-                          border: Border.all(
-                            width: 1,
-                            color: TColor.gray.withOpacity(0.4),
-                          ),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Image.asset(
-                          "assets/img/google.png",
-                          width: 20,
-                          height: 20,
-                        ),
-                      ),
-                    ),
                     SizedBox(
                       width: media.width * 0.04,
                     ),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        width: 50,
-                        height: 50,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: TColor.white,
-                          border: Border.all(
-                            width: 1,
-                            color: TColor.gray.withOpacity(0.4),
-                          ),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Image.asset(
-                          "assets/img/facebook.png",
-                          width: 20,
-                          height: 20,
-                        ),
-                      ),
-                    )
                   ],
                 ),
                 SizedBox(

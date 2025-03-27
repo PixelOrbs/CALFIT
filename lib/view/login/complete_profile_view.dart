@@ -26,7 +26,10 @@ class _CompleteProfileViewState extends State<CompleteProfileView> {
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
       // If validation passes, update Firebase
-      FirebaseFirestore.instance.collection('UserData').doc(widget.emailController.text).update({
+      FirebaseFirestore.instance
+          .collection('UserData')
+          .doc(widget.emailController.text)
+          .update({
         "DateOfBirth": txtDate.text,
         "Weight": txtWeight.text,
         "Height": txtHeight.text,
@@ -35,7 +38,8 @@ class _CompleteProfileViewState extends State<CompleteProfileView> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => WelcomeView(emailController: widget.emailController),
+            builder: (context) =>
+                WelcomeView(emailController: widget.emailController),
           ),
         );
       }).catchError((error) {
@@ -54,7 +58,7 @@ class _CompleteProfileViewState extends State<CompleteProfileView> {
           child: Padding(
             padding: const EdgeInsets.all(15.0),
             child: Form(
-              key: _formKey, // Assign form key
+              key: _formKey,
               child: Column(
                 children: [
                   Image.asset(
@@ -91,7 +95,8 @@ class _CompleteProfileViewState extends State<CompleteProfileView> {
                                 alignment: Alignment.center,
                                 width: 50,
                                 height: 50,
-                                padding: const EdgeInsets.symmetric(horizontal: 15),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 15),
                                 child: Image.asset(
                                   "assets/img/gender.png",
                                   width: 20,
@@ -109,7 +114,9 @@ class _CompleteProfileViewState extends State<CompleteProfileView> {
                                               value: name,
                                               child: Text(
                                                 name,
-                                                style: TextStyle(color: TColor.gray, fontSize: 14),
+                                                style: TextStyle(
+                                                    color: TColor.gray,
+                                                    fontSize: 14),
                                               ),
                                             ))
                                         .toList(),
@@ -121,7 +128,8 @@ class _CompleteProfileViewState extends State<CompleteProfileView> {
                                     isExpanded: true,
                                     hint: Text(
                                       "Choose Gender",
-                                      style: TextStyle(color: TColor.gray, fontSize: 12),
+                                      style: TextStyle(
+                                          color: TColor.gray, fontSize: 12),
                                     ),
                                   ),
                                 ),
@@ -130,7 +138,8 @@ class _CompleteProfileViewState extends State<CompleteProfileView> {
                             ],
                           ),
                         ),
-                        if (selectedGender == null) // Show error if gender is not selected
+                        if (selectedGender ==
+                            null) // Show error if gender is not selected
                           Padding(
                             padding: const EdgeInsets.only(top: 5),
                             child: Text(
@@ -141,10 +150,11 @@ class _CompleteProfileViewState extends State<CompleteProfileView> {
                         SizedBox(height: media.width * 0.04),
                         RoundTextField(
                           controller: txtDate,
-                          hitText: "Date of Birth",
+                          hitText: "Age",
                           icon: "assets/img/date.png",
                           validator: (value) {
-                            if (value == null || value.trim().isEmpty) return "Date of Birth is required";
+                            if (value == null || value.trim().isEmpty)
+                              return "Age is required";
                             return null;
                           },
                         ),
@@ -157,7 +167,8 @@ class _CompleteProfileViewState extends State<CompleteProfileView> {
                                 hitText: "Your Weight",
                                 icon: "assets/img/weight.png",
                                 validator: (value) {
-                                  if (value == null || value.trim().isEmpty) return "Weight is required";
+                                  if (value == null || value.trim().isEmpty)
+                                    return "Weight is required";
                                   return null;
                                 },
                               ),
@@ -175,7 +186,8 @@ class _CompleteProfileViewState extends State<CompleteProfileView> {
                               ),
                               child: Text(
                                 "KG",
-                                style: TextStyle(color: TColor.white, fontSize: 12),
+                                style: TextStyle(
+                                    color: TColor.white, fontSize: 12),
                               ),
                             )
                           ],
@@ -189,7 +201,8 @@ class _CompleteProfileViewState extends State<CompleteProfileView> {
                                 hitText: "Your Height",
                                 icon: "assets/img/hight.png",
                                 validator: (value) {
-                                  if (value == null || value.trim().isEmpty) return "Height is required";
+                                  if (value == null || value.trim().isEmpty)
+                                    return "Height is required";
                                   return null;
                                 },
                               ),
@@ -207,7 +220,8 @@ class _CompleteProfileViewState extends State<CompleteProfileView> {
                               ),
                               child: Text(
                                 "CM",
-                                style: TextStyle(color: TColor.white, fontSize: 12),
+                                style: TextStyle(
+                                    color: TColor.white, fontSize: 12),
                               ),
                             )
                           ],
@@ -215,7 +229,8 @@ class _CompleteProfileViewState extends State<CompleteProfileView> {
                         SizedBox(height: media.width * 0.07),
                         RoundButton(
                           title: "Next >",
-                          onPressed: _submitForm, // Calls the function to validate & submit
+                          onPressed:
+                              _submitForm, // Calls the function to validate & submit
                         ),
                       ],
                     ),
